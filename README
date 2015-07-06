@@ -1,0 +1,89 @@
+*** UNDER CONSTRUCTION ***
+
+char in/out              DONE   cinout.cpp
+- adding 2 integers
+- etc
+
+functions
+- overloading
+- default args
+- recursion
+- inline
+- reference params
+- function templates
+- recursion for fibonacci
+
+variables
+- pointers
+- references
+- enum
+- const
+- arrays
+  - setting size with variable
+  - sorting
+
+classes part 1
+- public, private, sections
+- constructors, destructors
+  - default args
+- accessors
+- operator overloading
+- const objects / member fucntions
+- constant members, and how to initialize them
+- class object assignment
+   - memberwise copy
+   - copy constructor
+   - override = operator
+- class composition  'has-a'
+  - composition   Person has-a Name, BirthDate 
+
+classes part 2
+- class friend functions
+- this ptr
+  - prevent an object from being assigned to self
+  - cascading 
+  - in friend functions
+- new and delete
+  - variables
+  - arrays
+- static class members
+
+Operator Overloading
+- as class member
+- as friend function
+- unary
+- binary
+- String class
+
+-- continue with chapter 9 - inheritance --
+
+
+
+-- sample pgm ideas --
+
+drawing shape objects
+navigating a maze
+traffic flow
+
+--------------------------------------------
+--------------------------------------------
+--------------------------------------------
+
+class inheritence  'is-a'
+- virtual functions
+
+advanced char in/out
+- fields controls
+
+file in/out
+
+string i/o
+
+threads
+
+external linkage to c
+
+threads
+
+http://www.cplusplus.com/reference/thread/thread/
+- ^^ explore this reference ^^
