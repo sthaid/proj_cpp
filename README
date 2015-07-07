@@ -4,7 +4,7 @@ char in/out              DONE   cinout.cpp
 - adding 2 integers
 - etc
 
-functions
+functions                DONE   functions.cpp
 - overloading
 - default args
 - recursion
@@ -13,7 +13,7 @@ functions
 - function templates
 - recursion for fibonacci
 
-variables
+variables                DONE variables.cpp
 - pointers
 - references
 - enum
@@ -21,6 +21,9 @@ variables
 - arrays
   - setting size with variable
   - sorting
+- new delete
+
+extern c                  DONE externc.cpp
 
 classes part 1
 - public, private, sections
@@ -84,6 +87,8 @@ threads
 external linkage to c
 
 threads
+
+namespaces
 
 http://www.cplusplus.com/reference/thread/thread/
 - ^^ explore this reference ^^

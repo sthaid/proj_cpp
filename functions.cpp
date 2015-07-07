@@ -1,10 +1,10 @@
 // functions
-// - overloading              DONE
-// - default args             DONE
-// - inline                   DONE
-// - reference params         DONE
-// - function templates       DONE
-// - recursion for fibonacci  DONE
+// - overloading 
+// - default args 
+// - inline
+// - reference params
+// - function templates
+// - recursion for fibonacci
 
 #include <iostream>
 
