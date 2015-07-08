@@ -2,7 +2,7 @@
 
 char in/out              DONE   cinout.cpp
 - adding 2 integers
-- etc
+- fields controls
 
 functions                DONE   functions.cpp
 - overloading
@@ -75,18 +75,13 @@ traffic flow
 class inheritence  'is-a'
 - virtual functions
 
-advanced char in/out
-- fields controls
-
 file in/out
 
 string i/o
 
 threads
 
-external linkage to c
-
-threads
+threads, mutexes, condition variables
 
 namespaces
 

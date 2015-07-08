@@ -1,4 +1,4 @@
-TARGETS=cinout functions variables externc
+TARGETS=cinout functions variables externc classes1
 
 all: $(TARGETS)
 
@@ -13,6 +13,9 @@ variables: variables.cpp
 
 externc: externc.cpp
 	g++ -std=gnu++11 -Wall -o externc externc.cpp
+
+classes1: classes1.cpp
+	g++ -std=gnu++11 -Wall -o classes1 classes1.cpp
 
 
 
