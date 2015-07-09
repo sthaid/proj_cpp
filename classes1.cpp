@@ -1,25 +1,23 @@
 // classes part 1
 // - public, private, sections
-// - constructors, destructors
-//   - default args
+// - constructors, destructors, default constructor args
 // - accessors
 // - operator overloading
 // - const objects / member fucntions
-// - constant members, and how to initialize them
-// - class object assignment
+// - class composition  'has-a'
+// - constant members, and how to initialize them           XXX
+// - class object assignment                                XXX
 //    - memberwise copy
 //    - copy constructor
 //    - override = operator
-// - class composition  'has-a'
-//   - composition   Person has-a Name, BirthDate
 
 #include <iostream>
-#include <cstring>
 
 using std::cin;
 using std::cout;
 using std::endl;
 using std::ostream;
+using std::string;
 
 // -----------------  CLASS DATE  ---------------------------
 
@@ -85,22 +83,12 @@ Date Date::operator+(int value) const
 class Name {
     friend ostream &operator<<(ostream &, const Name &);
 public:
-    Name(const char * f, const char * l);
-    ~Name();
+    Name(const string f, const string l) : first(f), last(l) {}
+    ~Name() {}
 private:
-    char first[100];  // xxx use new OR string
-    char last[100];  // xxx use new OR string
+    string first;
+    string last;
 };
-
-Name::Name(const char * f, const char * l)
-{
-    strcpy(first,f);
-    strcpy(last,l);  
-}
-
-Name::~Name()
-{
-}
 
 ostream &operator<<(ostream &out, const Name &n)
 {
@@ -113,23 +101,17 @@ ostream &operator<<(ostream &out, const Name &n)
 class Person {
     friend ostream &operator<<(ostream &out, const Person &p);
 public:
-    Person(const char * first, const char * last, int bmonth, int bday, int byear);
+    Person(const char * first, const char * last, int bmonth, int bday, int byear)
+        : name(first,last), birthdate(bmonth,bday,byear) {}
     ~Person() {}
-// xxx get and set ?
 private:
-    Name name;
-    Date birthdate;
+    const Name name;
+    const Date birthdate;
 };
-
-Person::Person(const char * first, const char * last, int bmonth, int bday, int byear)
-    : name(first,last), 
-      birthdate(bmonth,bday,byear)
-{
-}
 
 ostream &operator<<(ostream &out, const Person &p)
 {
-    out << p.name << " birthdate " << p.birthdate << endl;
+    out << p.name << " birthdate " << p.birthdate;
     return out;
 }
 
@@ -140,44 +122,44 @@ class Student : public Person {
 public:
     Student(const char * first, const char * last, 
             int bmonth, int bday, int byear,
-            double gpa);
-    ~Student();
-    void set_gpa(double gpa);
-    double get_gpa() const;
+            double gpa)
+            : Person(first, last, bmonth, bday, byear), gpa_val(gpa) {}
+    ~Student() {}
+    void set_gpa(double gpa) { gpa_val = gpa; }
+    double get_gpa() const { return gpa_val; }
 private:
-    double grade_point_average;
+    double gpa_val;
 };
-
-Student::Student(const char * first, const char * last, 
-        int bmonth, int bday, int byear,
-        double gpa)
-    : Person(first, last, bmonth, bday, byear),
-      grade_point_average(gpa)
-{
-}
-
-Student::~Student()
-{
-}
-
-void Student::set_gpa(double gpa)
-{
-    grade_point_average = gpa;
-}
-
-double Student::get_gpa() const
-{
-    return grade_point_average;
-}
 
 ostream &operator<<(ostream &out, const Student &s)
 {
-    // out <<  XXXX left off here
+    Person p = s;
 
+    out << p << " gpa " << s.gpa_val;
     return out;
 }
 
 // -----------------  DERIVED CLASS EMPLOYEE  ---------------
+
+class Employee : public Person {
+    friend ostream &operator<<(ostream &out, const Employee &e);
+public:
+    Employee(const char * first, const char * last,
+            int bmonth, int bday, int byear,
+            int hmonth, int hday, int hyear)
+            : Person(first, last, bmonth, bday, byear), hiredate(hmonth,hday,hyear) {}
+    ~Employee() {}
+private:
+    Date hiredate;
+};
+
+ostream &operator<<(ostream &out, const Employee &e)
+{
+    Person p = e;
+
+    out << p << " hiredate " << e.hiredate;
+    return out;
+}
 
 // -----------------  MAIN  ---------------------------------
 
@@ -201,5 +183,23 @@ int main()
     // test Person class
     Person p("Jane", "Smith", 1, 2, 3);
     cout << "Person is " << p << endl;
+
+    // test Student derived class
+    Student s("Jane", "Jones", 4, 5, 6, 3.5);
+    cout << "Student is " << s << endl;
+
+    // test Employee derived class
+    Employee e("Roger", "Smith", 5, 6, 7, 8, 9, 10);
+    cout << "Employee is " << e << endl;
+
+    // array of Person
+    Person *parray[3] = { &p,&s,&e };
+    for (int i = 0; i < 3; i++) {
+        cout << "parray[" << i << "] = " << *parray[i] << endl;
+    }
+
+    // XXX
+    Person newp(p);
+
 
 }
