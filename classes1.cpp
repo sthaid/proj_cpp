@@ -1,15 +1,11 @@
 // classes part 1
 // - public, private, sections
-// - constructors, destructors, default constructor args
+// - constructors, destructors, default constructor args, copy constructors
 // - accessors
 // - operator overloading
-// - const objects / member fucntions
+// - const objects, members, and member fucntions
+// - static members
 // - class composition  'has-a'
-// - constant members, and how to initialize them           XXX
-// - class object assignment                                XXX
-//    - memberwise copy
-//    - copy constructor
-//    - override = operator
 
 #include <iostream>
 
@@ -25,6 +21,7 @@ class Date {
     friend ostream &operator<<(ostream &, const Date &);
 public:
     Date(int m=0, int d=0, int y=0) { set_month(m); set_day(d); set_year(y); }
+    Date(const Date &d) { set_month(d.month); set_day(d.day); set_year(d.year); }
     ~Date() {}
 
     Date &set_month(int m) { month = m; return *this; }
@@ -38,7 +35,7 @@ public:
     void print() const;
 
     Date operator++(int);   // postincrement
-    Date  operator++();      // preincrement
+    Date operator++();      // preincrement
     Date operator+(int) const;
 private:
     int month;
@@ -83,7 +80,14 @@ Date Date::operator+(int value) const
 class Name {
     friend ostream &operator<<(ostream &, const Name &);
 public:
-    Name(const string f, const string l) : first(f), last(l) {}
+    Name(const string f="", const string l="") : first(f), last(l) {}
+    Name(const Name &n) : first(n.first), last(n.last) {}
+
+    Name &set_first(string f) { first = f; return *this; }
+    Name &set_last(string l) { last = l; return *this; }
+
+    string get_first() const { return first; }
+    string get_last() const { return last; }
     ~Name() {}
 private:
     string first;
@@ -101,13 +105,62 @@ ostream &operator<<(ostream &out, const Name &n)
 class Person {
     friend ostream &operator<<(ostream &out, const Person &p);
 public:
-    Person(const char * first, const char * last, int bmonth, int bday, int byear)
-        : name(first,last), birthdate(bmonth,bday,byear) {}
-    ~Person() {}
+    Person();
+    Person(const string first, const string last, int bmonth, int bday, int byear);
+    Person(const Person &);  // copy constructor
+    ~Person();
+
+    Person &operator=(const Person &);
+
+    static int get_count();
 private:
-    const Name name;
-    const Date birthdate;
+    Name name;
+    Date birthdate;
+
+    static int count;
 };
+
+Person::Person()
+{
+    count++;
+    cout << " -- person default constructor" << endl;
+}
+
+Person::Person(const string first, const string last, int bmonth, int bday, int byear)
+    : name(first,last), 
+      birthdate(bmonth,bday,byear) 
+{   
+    count++;
+    cout << " -- person constructor for " << name << " - count " << count << endl; 
+}
+
+Person::Person(const Person &p)
+    : name(p.name), 
+      birthdate(p.birthdate)
+{
+    count++;
+    cout << " -- person copy constructor for " << name << " - count " << count << endl; 
+}
+
+Person::~Person() 
+{
+    count--;
+    cout << " -- person destructor for " << name << " - count " << count << endl; 
+}
+
+Person &Person::operator=(const Person &p)
+{
+    this->name = p.name;
+    this->birthdate = p.birthdate;
+    return *this;
+}
+
+int Person::count = 0;
+
+int Person::get_count()
+{
+    return Person::count;
+}
 
 ostream &operator<<(ostream &out, const Person &p)
 {
@@ -120,7 +173,7 @@ ostream &operator<<(ostream &out, const Person &p)
 class Student : public Person {
     friend ostream &operator<<(ostream &out, const Student &s);
 public:
-    Student(const char * first, const char * last, 
+    Student(const string first, const string last, 
             int bmonth, int bday, int byear,
             double gpa)
             : Person(first, last, bmonth, bday, byear), gpa_val(gpa) {}
@@ -133,7 +186,7 @@ private:
 
 ostream &operator<<(ostream &out, const Student &s)
 {
-    Person p = s;
+    const Person &p = s;
 
     out << p << " gpa " << s.gpa_val;
     return out;
@@ -144,7 +197,7 @@ ostream &operator<<(ostream &out, const Student &s)
 class Employee : public Person {
     friend ostream &operator<<(ostream &out, const Employee &e);
 public:
-    Employee(const char * first, const char * last,
+    Employee(const string first, const string last,
             int bmonth, int bday, int byear,
             int hmonth, int hday, int hyear)
             : Person(first, last, bmonth, bday, byear), hiredate(hmonth,hday,hyear) {}
@@ -155,7 +208,7 @@ private:
 
 ostream &operator<<(ostream &out, const Employee &e)
 {
-    Person p = e;
+    const Person &p = e;
 
     out << p << " hiredate " << e.hiredate;
     return out;
@@ -175,31 +228,74 @@ int main()
     cout << "date is now " << d << endl;
     d = d + 5;
     cout << "date is added by 5 " << d << endl;
+    cout << endl;
 
     // test Name class
-    Name n("John", "Smith");
+    Name n("Name", "Test");
     cout << "Name is " << n << endl;
+    cout << endl;
 
     // test Person class
-    Person p("Jane", "Smith", 1, 2, 3);
+    Person p("Person", "Class", 1, 2, 3);
     cout << "Person is " << p << endl;
+    cout << endl;
 
     // test Student derived class
-    Student s("Jane", "Jones", 4, 5, 6, 3.5);
+    Student s("Student", "Derived", 4, 5, 6, 3.5);
     cout << "Student is " << s << endl;
+    cout << endl;
 
     // test Employee derived class
-    Employee e("Roger", "Smith", 5, 6, 7, 8, 9, 10);
+    Employee e("Employee", "Derived", 5, 6, 7, 8, 9, 10);
     cout << "Employee is " << e << endl;
+    cout << endl;
 
-    // array of Person
+    // array of ptr to Person
     Person *parray[3] = { &p,&s,&e };
     for (int i = 0; i < 3; i++) {
         cout << "parray[" << i << "] = " << *parray[i] << endl;
     }
+    cout << endl;
 
-    // XXX
-    Person newp(p);
+    // array of reference to Person
+    // ERROR: Person &ref_array[3] = { &p,&s,&e };
 
+    // array of reference to Person, by embedding reference in a structure
+    struct {
+        Person &p;
+    } ref[3] = { {p}, {s}, {e} };
+    for (int i = 0; i < 3; i++) {
+        cout << "ref[" << i << "].p = " << ref[i].p << endl;
+    }
+    cout << endl;
 
+    // copy constructor, and alternate form of copy constructor
+    cout << "person count before copy construct= " << Person::get_count() << endl;
+    Person p2(p);
+    cout << "p2: " << p2 << endl;
+    cout << "person count after copy construct= " << Person::get_count() << endl;
+    cout << endl;
+
+    cout << "person count before copy alternate construct= " << Person::get_count() << endl;
+    Person p3 = p;
+    cout << "p3: " << p3 << endl;
+    cout << "person count after alternate copy construct= " << Person::get_count() << endl;
+    cout << endl;
+
+    // object assignment
+    Person p4;
+    cout << "default person p4: " << p4 << endl;
+    p4 = p;
+    cout << "person p4 after assignment: " << p4 << endl;
+    cout << endl;
+
+    // const object
+    const Person p5("Const", "Person", 9,9,9);
+    cout << "const person " << p5 << endl;
+    // ERROR p5 = p;
+    cout << endl;
+
+    // terminating
+    cout << "program terminating" << endl;
+    cout << endl;
 }
