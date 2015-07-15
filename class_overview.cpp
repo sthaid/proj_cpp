@@ -1,4 +1,4 @@
-// classes part 1
+// classes overview
 // - public, private, sections
 // - constructors, destructors, default constructor args, copy constructors
 // - accessors
@@ -150,6 +150,11 @@ Person::~Person()
 
 Person &Person::operator=(const Person &p)
 {
+    if (this == &p) {
+        cout << "** prevent self assignment **" << endl;
+        return *this;
+    }
+
     this->name = p.name;
     this->birthdate = p.birthdate;
     return *this;
@@ -287,6 +292,8 @@ int main()
     cout << "default person p4: " << p4 << endl;
     p4 = p;
     cout << "person p4 after assignment: " << p4 << endl;
+    p4 = p4;
+    cout << "person p4 after self assignment: " << p4 << endl;
     cout << endl;
 
     // const object

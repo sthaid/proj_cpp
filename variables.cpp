@@ -1,4 +1,4 @@
-// variables
+// variables XXX check these summaries
 // - pointers    
 // - references
 // - enum

@@ -25,38 +25,19 @@ variables                DONE variables.cpp
 
 extern c                  DONE externc.cpp
 
-classes part 1
+classes part 1            DONE classes1.cpp
 - public, private, sections
-- constructors, destructors
-  - default args
+- constructors, destructors, default constructor args, copy constructors
 - accessors
 - operator overloading
-- const objects / member fucntions
-- constant members, and how to initialize them
-- class object assignment
-   - memberwise copy
-   - copy constructor
-   - override = operator
+- const objects, members, and member fucntions
+- static members
 - class composition  'has-a'
-  - composition   Person has-a Name, BirthDate 
 
-classes part 2
-- class friend functions
-- this ptr
-  - prevent an object from being assigned to self
-  - cascading 
-  - in friend functions
-- new and delete
-  - variables
-  - arrays
-- static class members
-
-Operator Overloading
-- as class member
-- as friend function
-- unary
-- binary
-- String class
+classes part 2 
+- inheritence
+- abstract base class
+- shapes program
 
 -- continue with chapter 9 - inheritance --
 
