@@ -1,4 +1,4 @@
-TARGETS=cinout functions variables externc \
+TARGETS=cinout functions variables externc thread \
         class_overview class_abstract class_template
 
 all: $(TARGETS)
@@ -15,6 +15,9 @@ variables: variables.cpp
 externc: externc.cpp
 	g++ -std=gnu++11 -Wall -o externc externc.cpp
 
+thread: thread.cpp
+	g++ -Wall -std=gnu++11 -pthread -o thread thread.cpp
+
 class_overview: class_overview.cpp
 	g++ -std=gnu++11 -Wall -o class_overview class_overview.cpp
 
@@ -27,8 +30,6 @@ class_template: class_template.cpp
 
 
 
-thread: thread.cpp
-	g++ -Wall -std=gnu++11 -pthread -o thread thread.cpp
 
 clean:
 	rm -f $(TARGETS)

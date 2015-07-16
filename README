@@ -25,7 +25,7 @@ variables                DONE variables.cpp
 
 extern c                  DONE externc.cpp
 
-classes part 1            DONE classes1.cpp
+class overview            DONE 
 - public, private, sections
 - constructors, destructors, default constructor args, copy constructors
 - accessors
@@ -34,36 +34,24 @@ classes part 1            DONE classes1.cpp
 - static members
 - class composition  'has-a'
 
-classes part 2 
-- inheritence
+classes abstract          DONE
 - abstract base class
-- shapes program
+
+class template            DONE
+
 
 -- continue with chapter 9 - inheritance --
 
 
-
--- sample pgm ideas --
-
-drawing shape objects
-navigating a maze
-traffic flow
-
 --------------------------------------------
 --------------------------------------------
 --------------------------------------------
 
-class inheritence  'is-a'
-- virtual functions
-
-file in/out
-
-string i/o
-
-threads
+begin, end
 
 threads, mutexes, condition variables
-
+file in/out
+string i/o
 namespaces
 
 http://www.cplusplus.com/reference/thread/thread/
