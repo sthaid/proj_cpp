@@ -39,20 +39,28 @@ classes abstract          DONE
 
 class template            DONE
 
+threads, mutexes, condition variables   DONE
 
--- continue with chapter 9 - inheritance --
+namespaces                DONE
+
 
 
 --------------------------------------------
 --------------------------------------------
 --------------------------------------------
 
+** continue with chapter 9 - inheritance **
+
+dynamic_cast
 begin, end
+container, iterator
 
-threads, mutexes, condition variables
 file in/out
 string i/o
-namespaces
+
+--------------------------------------------
+--------------------------------------------
+--------------------------------------------
 
 http://www.cplusplus.com/reference/thread/thread/
 - ^^ explore this reference ^^

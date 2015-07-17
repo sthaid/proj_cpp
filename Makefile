@@ -1,5 +1,6 @@
 TARGETS=cinout functions variables externc thread \
-        class_overview class_abstract class_template
+        class_overview class_abstract class_template \
+        namespace_test
 
 all: $(TARGETS)
 
@@ -27,9 +28,8 @@ class_abstract: class_abstract.cpp
 class_template: class_template.cpp
 	g++ -std=gnu++11 -Wall -o class_template class_template.cpp
 
-
-
-
+namespace_test: namespace_test.cpp namespace.cpp namespace.h
+	g++ -std=gnu++11 -Wall -o namespace_test namespace_test.cpp namespace.cpp
 
 clean:
 	rm -f $(TARGETS)
