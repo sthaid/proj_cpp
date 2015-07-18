@@ -51,10 +51,10 @@ namespaces                DONE
 
 ** continue with chapter 9 - inheritance **
 
-dynamic_cast
+exceptions
 begin, end
 container, iterator
-
+dynamic_cast
 file in/out
 string i/o
 
