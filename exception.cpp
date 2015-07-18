@@ -24,19 +24,32 @@ public:
     virtual const char * what() const throw() { return "MYEXCEPTION"; }
 };
 
-int func(void) 
+int func_throw_exception(void) 
 {
     throw exception();
-    cout << "func: after throw" << endl;
+    cout << "func_throw_exception: after throw" << endl;
     return 0;
 }
+
+void my_unexpected_handler(void)
+{
+    cout << "my_unexpected_handler: called, program exitting" << endl;
+    exit(1);
+}
+
+void test_set_unexpected(void) throw()
+{
+    throw my_exception();
+}
+
+// -----------------  MAIN  -------------------------------------------
 
 int main()
 {
     // catch std::exception
     try {
-        func();
-        cout << "main: after func call, should not be here" << endl;
+        func_throw_exception();
+        cout << "main: after func_throw_exception call, should not be here" << endl;
     } catch (exception &e) {
         cout << "main: exception caught -  " << e.what() << endl;
     }
@@ -56,7 +69,7 @@ int main()
     } catch (exception &e) {
         cout << "main: exception caught -  " << e.what() << endl;
     } catch (...) {
-        cout << "main: unknown exception caught"  << endl;
+        cout << "main: unknown exception caught, should not be here"  << endl;
     }
 
     // catch any exception    
@@ -78,6 +91,10 @@ int main()
     } catch (exception &e) {
         cout << "main: exception caught, unique_ptr automatically freed -  " << e.what() << endl;
     }
+
+    // test set_unexpected
+    std::set_unexpected(my_unexpected_handler);
+    test_set_unexpected();
 
     // terminating
     cout << __func__ << ": terminating" << endl;
