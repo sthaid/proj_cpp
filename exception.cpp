@@ -5,7 +5,7 @@
 // - set_unexpected    XXX
 
 #include <iostream>
-#include <exception>
+#include <stdexcept>
 #include <memory>
 #include <new>
 

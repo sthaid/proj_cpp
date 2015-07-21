@@ -1,4 +1,4 @@
-TARGETS=cinout functions variables externc thread \
+TARGETS=cinout functions variables externc thread string \
         class_overview class_abstract class_template \
         namespace_test exception
 
@@ -18,6 +18,9 @@ externc: externc.cpp
 
 thread: thread.cpp
 	g++ -std=gnu++11 -Wall -pthread -o thread thread.cpp
+
+string: string.cpp
+	g++ -std=gnu++11 -Wall -o string string.cpp
 
 class_overview: class_overview.cpp
 	g++ -std=gnu++11 -Wall -o class_overview class_overview.cpp
