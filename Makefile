@@ -1,6 +1,6 @@
 TARGETS=cinout functions variables externc thread string \
         class_overview class_abstract class_template \
-        namespace_test exception
+        list namespace_test exception
 
 all: $(TARGETS)
 
@@ -30,6 +30,9 @@ class_abstract: class_abstract.cpp
 
 class_template: class_template.cpp
 	g++ -std=gnu++11 -Wall -o class_template class_template.cpp
+
+list: list.cpp
+	g++ -std=gnu++11 -Wall -o list list.cpp
 
 namespace_test: namespace_test.cpp namespace.cpp namespace.h
 	g++ -std=gnu++11 -Wall -o namespace_test namespace_test.cpp namespace.cpp
