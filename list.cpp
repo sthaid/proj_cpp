@@ -2,6 +2,8 @@
 // - linked list
 // - stack derived from linked list
 
+// custom iterator: https://gist.github.com/jeetsukumaran/307264
+
 #include <iostream>
 #include <cassert>
 
@@ -53,7 +55,21 @@ public:
     bool is_empty();
     void fwd_print();
     void rev_print();
-// XXX begin end
+
+    class iterator {
+    public:
+        iterator(ListNode<NODETYPE> *l) : ln(l) { }
+        iterator operator++() { iterator i = *this; ln = ln->next; return i; }
+        iterator operator++(int junk) { ln = ln->next; return *this; }
+        NODETYPE operator*() { return ln->get(); }
+        bool operator==(const iterator& right) { return ln == right.ln; }
+        bool operator!=(const iterator& right) { return ln != right.ln; }
+    private:
+        ListNode<NODETYPE> *ln;
+    };
+    iterator begin() { return iterator(head); }
+    iterator end() { return iterator(NULL); }
+
 private:
     ListNode<NODETYPE> * head;
     ListNode<NODETYPE> * tail;
@@ -63,15 +79,14 @@ template <class NODETYPE>
 List<NODETYPE>::List()
 {
     head = tail = NULL;
+    iterator(NULL);
 }
 
 template <class NODETYPE>
 List<NODETYPE>::~List()
 {
     NODETYPE val;
-    // cout << "DESTRUCTOR ...\n";
     while (remove_from_head(val)) {
-        // cout << "destroyed " << val << endl;
     }
 }
 
@@ -234,6 +249,39 @@ int main()
 
     cout << "list_of_chars: fwd_print = ";
     list_of_chars.fwd_print();
+    cout << endl;
+
+    cout << "list_of_chars: for loop print1 = ";
+    for (auto i: list_of_chars) {
+        cout << i << " ";
+    }
+    cout << endl;
+
+    cout << "list_of_chars: for loop print2 = ";
+    for (List<char>::iterator it = list_of_chars.begin();
+        it != list_of_chars.end();
+        it++)
+    {
+        cout << *it << " ";
+    }
+    cout << endl;
+    }
+    cout << endl;
+
+    // test list of struct
+    {
+    typedef struct { char c; } struct_t;
+    cout << "list_of_structs: init" << endl;
+    List<struct_t> list_of_structs;
+    for (char c = 'a'; c <= 'z'; c++) {
+        struct_t s = {c};      
+        list_of_structs.insert_at_tail(s);
+    }
+
+    cout << "list_of_structs: for loop print = ";
+    for (auto i: list_of_structs) {
+        cout << i.c << " ";
+    }
     cout << endl;
     }
     cout << endl;
