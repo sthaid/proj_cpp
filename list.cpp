@@ -200,7 +200,13 @@ void List<NODETYPE>::rev_print()
 
 // -----------------  STACK  ------------------------------------------------------
 
-// XXX
+template <class STACKTYPE>
+class Stack : private List<STACKTYPE> {
+public:
+    void push(STACKTYPE x) { List<STACKTYPE>::insert_at_head(x); }
+    bool pop(STACKTYPE &val) { return List<STACKTYPE>::remove_from_head(val); }
+    void dump() { List<STACKTYPE>::fwd_print(); }
+};
 
 // -----------------  MAIN  -------------------------------------------------------
 
@@ -286,6 +292,37 @@ int main()
     }
     cout << endl;
 
+    // test stack
+    {
+    cout << "stack: init = 1 2 3" << endl;
+    Stack<int> stack;
+    stack.push(1);
+    stack.push(2);
+    stack.push(3);
+
+    cout << "stack: dump = " ;
+    stack.dump();
+    cout << endl;
+
+    cout << "stack: pop = ";
+    int val;
+    while (stack.pop(val)) {
+        cout << val << " ";
+    }
+    cout << endl;
+
+    cout << "stack: dump = " ;
+    stack.dump();
+    cout << endl;
+
+#if 0 // an error because of private inheritance
+    cout << "stack: fwd_print = ";
+    stack.fwd_print();
+    cout << endl;
+#endif
+    }
+    cout << endl;
+    
     cout << "done" << endl;
     return 0;
 }
