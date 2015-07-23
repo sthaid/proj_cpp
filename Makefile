@@ -1,6 +1,7 @@
 TARGETS=cinout functions variables externc thread string \
         class_overview class_abstract class_template \
-        list namespace_test exception dynamic_cast
+        list namespace_test exception dynamic_cast \
+        stl
 
 all: $(TARGETS)
 
@@ -42,6 +43,9 @@ exception: exception.cpp
 
 dynamic_cast: dynamic_cast.cpp
 	g++ -std=gnu++11 -Wall -o dynamic_cast dynamic_cast.cpp
+
+stl: stl.cpp
+	g++ -std=gnu++11 -Wall -o stl stl.cpp
 
 clean:
 	rm -f $(TARGETS)
