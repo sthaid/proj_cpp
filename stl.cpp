@@ -39,18 +39,22 @@
 //   - XXX 
 
 #include <iostream>
-#include <vector>
 #include <stdexcept>
+#include <vector>
+#include <list>
+#include <deque>
+#include <iterator>
 
 using std::cout;
 using std::endl;
-using std::vector;
 using std::exception;
 
 // -----------------  VECTOR CONTAINER  --------------------------
 
 void vector_test()
 {
+    using std::vector;
+
     vector<int> v;
     vector<int>::iterator p;
     vector<int>::reverse_iterator rp;
@@ -105,10 +109,131 @@ void vector_test()
         cout << "  exception " << e.what() << endl;
     }
     
+    cout << "write element using copy to output iterator: ";
+    std::ostream_iterator<int> out(cout, " ");
+    v.clear();
+    v.push_back(7);
+    v.push_back(8);
+    v.push_back(9);
+    std::copy(v.begin(), v.end(), out);
+    cout << endl;
+
+    cout << "insert at begining: ";
+    v.insert(v.begin(), 6);
+    std::copy(v.begin(), v.end(), out);
+    cout << endl;
+
     cout << endl;
 }
 
+void list_test()
+{
+    using std::list;
 
+    const int SIZE = 5;
+    int data[SIZE] = { 10, 5, 3, 15, 13 };
+    list<int> l(data,data+SIZE);
+    list<int>::iterator p;
+    list<int>::reverse_iterator rp;
+    std::ostream_iterator<int> out(cout, " ");
+
+    cout << "-- LIST TEST --" << endl;
+
+    cout << "print list using copy: ";
+    std::copy(l.begin(), l.end(), out);
+    cout << endl;
+
+    cout << "print list using iterator: ";
+    for (auto &i: l) {
+        cout << i << " ";
+    }
+    cout << endl;
+
+    cout << "add to head and tail, and print: ";
+    l.push_front(13);
+    l.push_back(0);
+    std::copy(l.begin(), l.end(), out);
+    cout << endl;
+
+    cout << "sort: ";
+    l.sort();
+    std::copy(l.begin(), l.end(), out);
+    cout << endl;
+
+    cout << "unique: ";
+    l.unique();
+    std::copy(l.begin(), l.end(), out);
+    cout << endl;
+
+    cout << "reverse: ";
+    l.reverse();
+    std::copy(l.begin(), l.end(), out);
+    cout << endl;
+
+    cout << "splice: ";
+    list<int> x;
+    x.push_back(-1);
+    x.push_back(-2);
+    x.push_back(-3);
+    std::copy(x.begin(), x.end(), out); cout << endl;
+    l.splice(l.begin(),x);
+    cout << "  l = "; std::copy(l.begin(), l.end(), out); cout << endl;
+    cout << "  x = "; std::copy(x.begin(), x.end(), out); cout << endl;
+
+    cout << "swap: " << endl;
+    l.swap(x);
+    cout << "  l = "; std::copy(l.begin(), l.end(), out); cout << endl;
+    cout << "  x = "; std::copy(x.begin(), x.end(), out); cout << endl;
+
+    cout << "merge: " << endl;
+    l.clear();
+    x.clear();
+    l.push_back(1); l.push_back(3); l.push_back(5);
+    x.push_back(2); x.push_back(4); x.push_back(6);
+    cout << "  l = "; std::copy(l.begin(), l.end(), out); cout << endl;
+    cout << "  x = "; std::copy(x.begin(), x.end(), out); cout << endl;
+    l.merge(x);
+    cout << "  l = "; std::copy(l.begin(), l.end(), out); cout << endl;
+    cout << "  x = "; std::copy(x.begin(), x.end(), out); cout << endl;
+
+    cout << endl;
+}
+
+void deque_test()
+{
+    using std::deque;
+
+    const int SIZE = 3;
+    int data[SIZE] = { 10, 20, 30 };
+    deque<int> q(data, data+SIZE);
+    std::ostream_iterator<int> out(cout, " ");
+
+    cout << "-- DEQUE TEST --" << endl;
+
+    cout << "init: ";
+    std::copy(q.begin(), q.end(), out);
+    cout << endl;
+
+    cout << "add to front and back (0 and 40)" << endl;
+    q.push_front(0);
+    q.push_back(40);
+
+    cout << "print with for loop: " << endl;
+    for (unsigned int i = 0; i < q.size(); i++) {
+        cout << "  q[" << i << "] = " << q[i] << endl;
+    }
+
+    cout << "print with for loop: " << endl;
+    for (unsigned int i = 0; i < q.size(); i++) {
+        cout << "  q.at(" << i << ") = " << q.at(i) << endl;
+    }
+
+    cout << "after pop_front = ";
+    q.pop_front();
+    std::copy(q.begin(), q.end(), out); cout << endl;
+
+    cout << endl;
+}
 
 // -----------------  MAIN  --------------------------------------
 
@@ -117,6 +242,8 @@ int main()
     cout << std::boolalpha;
 
     vector_test();
+    list_test();
+    deque_test();
 
     cout << "-- DONE --" << endl;
 }
