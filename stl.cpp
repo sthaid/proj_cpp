@@ -43,6 +43,7 @@
 #include <vector>
 #include <list>
 #include <deque>
+#include <map>
 #include <iterator>
 
 using std::cout;
@@ -53,11 +54,9 @@ using std::exception;
 
 void vector_test()
 {
-    using std::vector;
-
-    vector<int> v;
-    vector<int>::iterator p;
-    vector<int>::reverse_iterator rp;
+    std::vector<int> v;
+    std::vector<int>::iterator p;
+    std::vector<int>::reverse_iterator rp;
 
     cout << "-- VECTOR TEST --" << endl;
 
@@ -128,13 +127,11 @@ void vector_test()
 
 void list_test()
 {
-    using std::list;
-
     const int SIZE = 5;
     int data[SIZE] = { 10, 5, 3, 15, 13 };
-    list<int> l(data,data+SIZE);
-    list<int>::iterator p;
-    list<int>::reverse_iterator rp;
+    std::list<int> l(data,data+SIZE);
+    std::list<int>::iterator p;
+    std::list<int>::reverse_iterator rp;
     std::ostream_iterator<int> out(cout, " ");
 
     cout << "-- LIST TEST --" << endl;
@@ -171,7 +168,7 @@ void list_test()
     cout << endl;
 
     cout << "splice: ";
-    list<int> x;
+    std::list<int> x;
     x.push_back(-1);
     x.push_back(-2);
     x.push_back(-3);
@@ -201,11 +198,9 @@ void list_test()
 
 void deque_test()
 {
-    using std::deque;
-
     const int SIZE = 3;
     int data[SIZE] = { 10, 20, 30 };
-    deque<int> q(data, data+SIZE);
+    std::deque<int> q(data, data+SIZE);
     std::ostream_iterator<int> out(cout, " ");
 
     cout << "-- DEQUE TEST --" << endl;
@@ -235,15 +230,67 @@ void deque_test()
     cout << endl;
 }
 
+void map_test()
+{
+    typedef std::map<int,double,std::less<int>> mid;
+
+    const int MAX=10;
+    mid pairs;
+    mid::const_iterator it;
+
+    cout << "-- MAP ASSOCIATIVE CONTAINER TEST --" << endl;
+
+    cout << "init" << endl;
+    for (int i = 0; i < MAX; i++) {
+        mid::value_type value(i,1000.0*i);
+        pairs.insert(value);
+    }
+
+    cout << "print all" << endl;
+    for (auto &i: pairs) {
+        cout << "\t"<< i.first << "\t"<< i.second << endl;
+    }
+
+    cout << "print pairs[5] = " << pairs[5] << endl;
+
+    cout << "add key/value 77,77000" << endl;
+    pairs[77] = 77000;
+    for (auto &i: pairs) {
+        cout << "\t" << i.first << "\t"<< i.second << endl;
+    }
+
+    it = pairs.find(5);
+    cout << "find(5):        " << it->first << "\t" << it->second << endl;
+
+    it = pairs.lower_bound(5);
+    cout << "lower_bound(5): " << it->first << "\t" << it->second << endl;
+
+    it = pairs.upper_bound(5);
+    cout << "upper_bound(5): " << it->first << "\t" << it->second << endl;
+
+    cout << "count(5):       " << pairs.count(5) << endl;
+    cout << "size:           " << pairs.size() << endl;
+
+    it = pairs.find(999);
+    if (it == pairs.end()) {
+        cout << "find(999):      not found"<< endl;
+    } else {
+        cout << "find(999):      " << it->first << "\t" << it->second << endl;
+    }
+
+    cout << endl;
+}
+
 // -----------------  MAIN  --------------------------------------
 
 int main()
 {
     cout << std::boolalpha;
 
-    vector_test();
-    list_test();
-    deque_test();
+    //vector_test();
+    //list_test();
+    //deque_test();
+    map_test();
 
     cout << "-- DONE --" << endl;
 }
