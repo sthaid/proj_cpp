@@ -36,7 +36,8 @@
 //   - =  ==  !=  +=  -=  +  -  []  <  <=  >  >=
 //
 // - algorithms
-//   - XXX 
+//   - such as: fill, generate, sort, random_shuffle
+//
 
 #include <iostream>
 #include <stdexcept>

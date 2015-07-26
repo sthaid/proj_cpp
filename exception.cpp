@@ -2,7 +2,7 @@
 // - try. catch, throw
 // - new, bad_alloc
 // - unique_ptr
-// - set_unexpected    XXX
+// - set_unexpected 
 
 #include <iostream>
 #include <stdexcept>

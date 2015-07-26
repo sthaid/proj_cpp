@@ -1,4 +1,4 @@
-// XXX header needed
+// character i/o 
 
 #include <iostream>
 #include <iomanip>

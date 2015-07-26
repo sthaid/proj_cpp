@@ -1,11 +1,11 @@
-// variables XXX check these summaries
+// variables 
 // - pointers    
 // - references
 // - enum
 // - arrays
 //   - setting size with variable
 //   - sorting
-// - new delete
+// - new & delete
 // - const
 // - static_cast, const_cast, reinterpret_cast
 // - bool data type
@@ -44,7 +44,7 @@ int main(int argc, char **argv)
     func_print_int(7);  // okay because arg is 'const int&'
     cout << endl;
 
-    // new and delete  XXX reference?
+    // new and delete  
     int * new_var = new int (77);
     cout << "new_var = " << *new_var << endl;
     delete new_var;

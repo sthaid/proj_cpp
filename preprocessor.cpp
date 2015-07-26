@@ -1,4 +1,7 @@
-// XXX
+// preprocessr
+// - macros
+// - joining
+
 
 #include <iostream>
 #include <string>

@@ -2,8 +2,6 @@
 // - inheritence of abstrace base class
 // - container and iterator
 
-// XXX how does string destructor get called
-
 #include <iostream>
 #include <cmath>
 
