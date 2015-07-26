@@ -31,7 +31,10 @@ int main()
     assert(x == 5);
     cout << "  okay" << endl;
 
-    // asertion failed
+    // asertion failed,
+    // notes: 
+    // - to enable dump:   ulimit -c unlimited
+    // - to analyze dump:  gdb <executable> <core>
     cout << "assert failed test: " << endl;
     assert(x == 10);
     cout << "  **** SHOULD NOT BEREACHED ****" << endl;
