@@ -44,7 +44,10 @@
 #include <list>
 #include <deque>
 #include <map>
+#include <queue>
 #include <iterator>
+#include <algorithm>
+#include <bitset>
 
 using std::cout;
 using std::endl;
@@ -281,16 +284,115 @@ void map_test()
     cout << endl;
 }
 
+void priority_queue_adapter_test()
+{
+    std::priority_queue<int> pq;
+    std::ostream_iterator<int> out(cout, " ");
+
+    cout << "-- PRIORITY QUEUE ADAPTER TEST --" << endl;
+    
+    cout << "init: ";
+    pq.push(10);
+    pq.push(7);
+    pq.push(3);
+    pq.push(12);
+
+    cout << " pop and print: ";
+    while (!pq.empty()) {
+        cout << pq.top() << " ";
+        pq.pop();
+    }
+    cout << endl;
+
+    cout << endl;
+}
+
+int gen(void) { static int n; return n++; }
+bool greater_than_10(int value) { return value > 10; }
+
+void algorithms_test()
+{
+    std::vector<int> v(10);
+    std::ostream_iterator<int> out(cout, " ");
+
+    cout << "-- ALGORITHMS TEST --" << endl;
+
+    cout << "fill: ";
+    std::fill(v.begin(), v.end(), 7);
+    std::copy(v.begin(), v.end(), out); 
+    cout << endl;
+
+    cout << "fill_n: ";
+    std::fill_n(v.begin(), 3, 5);
+    std::copy(v.begin(), v.end(), out); 
+    cout << endl;
+
+    cout << "generate: ";
+    std::generate(v.begin(), v.end(), gen);
+    std::copy(v.begin(), v.end(), out); 
+    cout << endl;
+
+    cout << "generate_n: ";
+    std::generate_n(v.begin(), 5, gen);
+    std::copy(v.begin(), v.end(), out); 
+    cout << endl;
+
+    cout << "random_shuffle: ";
+    std::random_shuffle(v.begin(), v.end());
+    std::copy(v.begin(), v.end(), out); 
+    cout << endl;
+
+    cout << "count occurances of 10: " << std::count(v.begin(), v.end(), 10) << endl;
+    cout << "count_if > 10: " << std::count_if(v.begin(), v.end(), greater_than_10) << endl;
+    cout << "min_element > 10: " << *std::min_element(v.begin(), v.end()) << endl;
+    cout << "max_element > 10: " << *std::max_element(v.begin(), v.end()) << endl;
+    cout << "accumulate > 10: " << std::accumulate(v.begin(), v.end(), 0) << endl;
+
+    cout << "sort: ";
+    std::sort(v.begin(), v.end());
+    std::copy(v.begin(), v.end(), out); 
+    cout << endl;
+
+    cout << "reverse: ";
+    std::reverse(v.begin(), v.end());
+    std::copy(v.begin(), v.end(), out); 
+    cout << endl;
+
+    cout << endl;
+}
+
+void bitset_test()
+{
+    std::bitset<100> b;
+    std::ostream_iterator<int> out(cout, " ");
+
+    cout << "-- BITSET TEST --" << endl;
+
+    cout << "init: " << b.to_string() << endl;
+
+    cout << "set bit 20: ";
+    b[20] = 1;
+    cout << b.to_string() << endl;
+
+    cout << "size  = " << b.size() << endl;
+    cout << "count = " << b.count() << endl;
+
+    cout << endl;
+}
+
 // -----------------  MAIN  --------------------------------------
 
 int main()
 {
     cout << std::boolalpha;
 
-    //vector_test();
-    //list_test();
-    //deque_test();
+    vector_test();
+    list_test();
+    deque_test();
     map_test();
+    priority_queue_adapter_test();
+    algorithms_test();
+    bitset_test();
 
     cout << "-- DONE --" << endl;
 }
