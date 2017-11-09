@@ -46,6 +46,9 @@ void test_set_unexpected(void) throw()
 
 int main()
 {
+    // starting
+    cout << __func__ << ": starting" << endl;
+
     // catch std::exception
     try {
         func_throw_exception();

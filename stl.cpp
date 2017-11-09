@@ -347,7 +347,7 @@ void algorithms_test()
     cout << "count_if > 10: " << std::count_if(v.begin(), v.end(), greater_than_10) << endl;
     cout << "min_element > 10: " << *std::min_element(v.begin(), v.end()) << endl;
     cout << "max_element > 10: " << *std::max_element(v.begin(), v.end()) << endl;
-    cout << "accumulate > 10: " << std::accumulate(v.begin(), v.end(), 0) << endl;
+    //cout << "accumulate > 10: " << std::accumulate(v.begin(), v.end(), 0) << endl;
 
     cout << "sort: ";
     std::sort(v.begin(), v.end());

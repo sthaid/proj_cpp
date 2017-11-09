@@ -64,6 +64,22 @@ int main(int argc, char **argv)
     delete [] new_array;
     cout << endl;
 
+
+    unsigned char (*static_pixels)[1000];
+    static_pixels = new unsigned char[1000]  [1000];
+    cout << "XXX " << static_pixels << endl;
+    int i, j;
+    for (i = 0; i < 1000; i++) {
+        for (j = 0; j < 1000; j++) {
+            static_pixels[i][j] = 7;
+        }
+    }
+    cout << endl;
+    cout << endl;
+
+    delete [] static_pixels;
+    
+
     // enum 
     enum fruits {APPLE, PEAR, BANANA, GRAPE};
     enum fruits f;

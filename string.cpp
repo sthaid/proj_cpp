@@ -56,7 +56,7 @@ int main()
     s1 = "hello world";
     s2.assign(s1, 1, 3);
     cout << "substring from 'assign'= " << s2 << endl;
-    s2 = s1.substr(1, 3);
+    s2 = s1.substr(0,9999);
     cout << "substring from 'substr': " << s2 << endl;
     cout << "length            = " << s2.length() << endl;
     cout << "at(0),at(1) at(2) = " << s2.at(0) << " " << s2.at(1) << " " << s2.at(2) << endl;
